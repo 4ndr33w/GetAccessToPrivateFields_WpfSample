@@ -17,6 +17,22 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
             SetResult5_FieldInfoMethodStaticClass();
         }
         #region поля для заполнения wpf 
+
+        private string _timeSpan1;
+        public string TimeSpan1 { get { return _timeSpan1; } set { _timeSpan1 = value; OnPropertyChanged("TimeSpan1"); } }
+
+        private string _timeSpan2;
+        public string TimeSpan2 { get { return _timeSpan2; } set { _timeSpan2 = value; OnPropertyChanged("TimeSpan2"); } }
+
+        private string _timeSpan3;
+        public string TimeSpan3 { get { return _timeSpan3; } set { _timeSpan3 = value; OnPropertyChanged("TimeSpan3"); } }
+
+        private string _timeSpan4;
+        public string TimeSpan4 { get { return _timeSpan4; } set { _timeSpan4 = value; OnPropertyChanged("TimeSpan4"); } }
+
+        private string _timeSpan5;
+        public string TimeSpan5 { get { return _timeSpan5; } set { _timeSpan5 = value; OnPropertyChanged("TimeSpan5"); } }
+
         private string _result1 = "sample1";
         public string Result1 { get { return _result1; } set { _result1 = value; OnPropertyChanged("Result1"); } }
 
@@ -36,6 +52,7 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
         #region Example 1 _ FieldInfo
         private void SetResult1_FieldInfoMethod()
         {
+            var startTime = DateTime.Now;
             Models.SecretModel _secretModel = new Models.SecretModel();
             string result = string.Empty;
             FieldInfo fieldInfo = typeof(SecretModel).GetField("_secret", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -43,18 +60,25 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
             {
                 result = (string)fieldInfo.GetValue(_secretModel);
             }
+            var endTime = DateTime.Now;
+            var TimeSpan = (endTime - startTime);
+            var example1_duration = TimeSpan.TotalMilliseconds / 1000;
+            TimeSpan1 = $"{example1_duration} ms";
            Result1 = result;
         }
         #endregion
 
         #region Example 2 _ ExpressionTrees
-        private static string GetAccessToPrivateFields_Sample2()
+        private string GetAccessToPrivateFields_Sample2()
         {
+            var startTime = DateTime.Now;
             Models.SecretModel _secretModel = new Models.SecretModel();
             ParameterExpression keeperArg = Expression.Parameter(typeof(SecretModel), $"{_secretModel}"); // argument = SecretModel _secretModel
             Expression secretAncessor = Expression.Field(keeperArg, "_secret"); //_secretModel._secret
             var lambda = Expression.Lambda<Func<SecretModel, string>>(secretAncessor, keeperArg);
             var func = lambda.Compile(); // return result = _secretModel._secret
+            var endTime = DateTime.Now;
+            TimeSpan2 = TimeCounterMethod(startTime, endTime);
             return func(_secretModel);
         }
         #endregion
@@ -62,8 +86,11 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
         #region Example 3 _ SecretModel Nested Class
         private string GetAccessToPrivateFields_Sample3( )
         {
+            var startTime = DateTime.Now;
             Models.SecretModel _secretModel = new SecretModel(); 
             Models.SecretModel.SecretTokenSource secretTokenSource = new SecretModel.SecretTokenSource(_secretModel);
+            var endTime = DateTime.Now;
+            TimeSpan3 = TimeCounterMethod(startTime, endTime);
             return secretTokenSource.GetSecret();
         }
 
@@ -72,6 +99,7 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
         #region Example 4 _ FieldInfo
         private void SetResult4_FieldInfoMethodStatic()
         {
+            var startTime = DateTime.Now;
             SecretModel secretModel = new SecretModel();
             string result = string.Empty;
             FieldInfo[] fieldInfo = typeof(SecretModel).GetFields(BindingFlags.NonPublic | BindingFlags.Static);
@@ -79,6 +107,8 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
             {
                 result = (string)fieldInfo[0].GetValue(secretModel);
                 Result4 = result;
+                var endTime = DateTime.Now;
+                TimeSpan4 = TimeCounterMethod(startTime, endTime);
             }          
         }
         #endregion
@@ -86,15 +116,26 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
         #region Example 5 _ FieldInfo - Static Class
         private void SetResult5_FieldInfoMethodStaticClass()
         {
+            var startTime = DateTime.Now;
             string result = string.Empty;
             var fieldInfo = typeof(StaticSecretModel).GetField("_staticSecret", BindingFlags.NonPublic | BindingFlags.Static);
             if (fieldInfo != null)
             {
                 result = (string)fieldInfo.GetValue(null);
                 Result5 = result;
+                var endTime = DateTime.Now;
+                TimeSpan5 = TimeCounterMethod(startTime, endTime);
             }
         }
         #endregion
 
+        #region TimeCounterMethod
+        private string TimeCounterMethod(DateTime startTime, DateTime endTime)
+        {
+            var timeSpan = (endTime - startTime).TotalMilliseconds;
+            return Result1 = $"{timeSpan} milliseconds";
+        }
+
+        #endregion
     }
 }
