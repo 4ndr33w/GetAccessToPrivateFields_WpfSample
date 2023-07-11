@@ -1,17 +1,12 @@
 ﻿using GetAccessToPrivateFields_WpfSample.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GetAccessToPrivateFields_WpfSample.ViewModels
 {
     public class MainWindowVM : ViewModelBase
     {
-        //Models.SecretModel _secretModel = new Models.SecretModel();
         public MainWindowVM() { OnStartup(); }
         private void OnStartup()
         {
@@ -39,7 +34,7 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
         #endregion
 
         #region Example 1 _ FieldInfo
-        private void SetResult1_FieldInfoMethod(/*SecretModel secretModel*/)
+        private void SetResult1_FieldInfoMethod()
         {
             Models.SecretModel _secretModel = new Models.SecretModel();
             string result = string.Empty;
@@ -48,13 +43,12 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
             {
                 result = (string)fieldInfo.GetValue(_secretModel);
             }
-           // return result;
            Result1 = result;
         }
         #endregion
 
         #region Example 2 _ ExpressionTrees
-        private static string GetAccessToPrivateFields_Sample2(/*SecretClass privateClassInstance*/)
+        private static string GetAccessToPrivateFields_Sample2()
         {
             Models.SecretModel _secretModel = new Models.SecretModel();
             ParameterExpression keeperArg = Expression.Parameter(typeof(SecretModel), $"{_secretModel}"); // argument = SecretModel _secretModel
@@ -76,9 +70,8 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
         #endregion
 
         #region Example 4 _ FieldInfo
-        private void SetResult4_FieldInfoMethodStatic(/*SecretModel secretModel*/)
+        private void SetResult4_FieldInfoMethodStatic()
         {
-            //Models.StaticSecretModel _staticSecretModel = new StaticSecretModel();
             SecretModel secretModel = new SecretModel();
             string result = string.Empty;
             FieldInfo fieldInfo = typeof(SecretModel).GetField("_staticSecret", BindingFlags.NonPublic | BindingFlags.Static);
@@ -86,17 +79,13 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
             {
                 result = (string)fieldInfo.GetValue(secretModel);
                 Result4 = result;
-            }
-            // return result;
-            
+            }          
         }
         #endregion
 
         #region Example 5 _ FieldInfo - Static Class
-        private void SetResult5_FieldInfoMethodStaticClass(/*SecretModel secretModel*/)
+        private void SetResult5_FieldInfoMethodStaticClass()
         {
-            //Models.StaticSecretModel _staticSecretModel = new StaticSecretModel();
-            //StaticSecretModel secretModel = new SecretModel();
             string result = string.Empty;
             var fieldInfo = typeof(StaticSecretModel).GetField("_staticSecret", BindingFlags.NonPublic | BindingFlags.Static);
             if (fieldInfo != null)
@@ -104,8 +93,6 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
                 result = (string)fieldInfo.GetValue(null);
                 Result5 = result;
             }
-            // return result;
-
         }
         #endregion
 

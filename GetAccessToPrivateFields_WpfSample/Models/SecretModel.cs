@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GetAccessToPrivateFields_WpfSample.Models
+﻿namespace GetAccessToPrivateFields_WpfSample.Models
 {
     internal class SecretModel
     {
@@ -26,6 +19,6 @@ namespace GetAccessToPrivateFields_WpfSample.Models
     }
     internal static class StaticSecretModel
     {
-        private static string _staticSecret = "PrIvAtE TeSt StAtIc StRiNg!!!1111адынадынадын1111!!!";
+        private static string _staticSecret = "PrIvAtE TeSt StAtIc ClAsS sTaTiC StRiNg!!!1111адынадынадын1111!!!";
     }
 }
