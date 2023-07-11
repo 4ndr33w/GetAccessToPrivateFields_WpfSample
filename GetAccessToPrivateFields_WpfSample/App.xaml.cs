@@ -16,7 +16,7 @@ namespace GetAccessToPrivateFields_WpfSample
     /// </summary>
     public partial class App : Application
     {
-        MainWindowVM MainWindowVM;
+        MainWindowVM MainWindowVM = new MainWindowVM();
 
         public App() 
         {

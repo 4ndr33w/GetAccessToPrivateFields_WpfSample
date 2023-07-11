@@ -26,7 +26,7 @@
                     <TextBlock Text="Example 2 _ ExpressionTrees" Width="170" VerticalAlignment="Center"/>
                     <TextBlock Text="Result:" Width="50" VerticalAlignment="Center"/>
                     <Border BorderBrush="Black" BorderThickness="1">
-                        <TextBlock Text="{Binding Result2}" Padding="10,2,10,2"/>
+                        <TextBlock Text="{Binding Path=Result2}" Padding="10,2,10,2"/>
                     </Border>
                 </StackPanel>
             </Border>
