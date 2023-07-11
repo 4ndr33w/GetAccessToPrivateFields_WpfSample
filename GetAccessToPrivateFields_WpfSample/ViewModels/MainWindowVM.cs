@@ -74,10 +74,10 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
         {
             SecretModel secretModel = new SecretModel();
             string result = string.Empty;
-            FieldInfo fieldInfo = typeof(SecretModel).GetField("_staticSecret", BindingFlags.NonPublic | BindingFlags.Static);
+            FieldInfo[] fieldInfo = typeof(SecretModel).GetFields(BindingFlags.NonPublic | BindingFlags.Static);
             if (fieldInfo != null)
             {
-                result = (string)fieldInfo.GetValue(secretModel);
+                result = (string)fieldInfo[0].GetValue(secretModel);
                 Result4 = result;
             }          
         }
