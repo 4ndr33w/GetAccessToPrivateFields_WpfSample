@@ -39,6 +39,24 @@
                     </Border>
                 </StackPanel>
             </Border>
+            <Border BorderThickness="1" BorderBrush="Black" Margin="10" Padding="3">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Example 4 _ Static_FieldInfo" Width="170" VerticalAlignment="Center"/>
+                    <TextBlock Text="Result:" Width="50" VerticalAlignment="Center"/>
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="{Binding Result4}" Padding="10,2,10,2"/>
+                    </Border>
+                </StackPanel>
+            </Border>
+            <Border BorderThickness="1" BorderBrush="Black" Margin="10" Padding="3">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Example 5 _ StaticClass" Width="170" VerticalAlignment="Center"/>
+                    <TextBlock Text="Result:" Width="50" VerticalAlignment="Center"/>
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="{Binding Result5}" Padding="10,2,10,2"/>
+                    </Border>
+                </StackPanel>
+            </Border>
 
         </StackPanel>
     </Grid>

@@ -18,6 +18,8 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
             SetResult1_FieldInfoMethod();
             Result2 = GetAccessToPrivateFields_Sample2();
             Result3 = GetAccessToPrivateFields_Sample3();
+            SetResult4_FieldInfoMethodStatic();
+            SetResult5_FieldInfoMethodStaticClass();
         }
         #region поля для заполнения wpf 
         private string _result1 = "sample1";
@@ -28,6 +30,12 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
 
         private string _result3 = "sample3";
         public string Result3 { get { return _result3; } set { _result3 = value; OnPropertyChanged("Result3"); } }
+
+        private string _result4 = "sample4";
+        public string Result4 { get { return _result4; } set { _result4 = value; OnPropertyChanged("Result4"); } }
+
+        private string _result5 = "sample5";
+        public string Result5 { get { return _result5; } set { _result5 = value; OnPropertyChanged("Result5"); } }
         #endregion
 
         #region Example 1 _ FieldInfo
@@ -65,6 +73,40 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
             return secretTokenSource.GetSecret();
         }
 
+        #endregion
+
+        #region Example 4 _ FieldInfo
+        private void SetResult4_FieldInfoMethodStatic(/*SecretModel secretModel*/)
+        {
+            //Models.StaticSecretModel _staticSecretModel = new StaticSecretModel();
+            SecretModel secretModel = new SecretModel();
+            string result = string.Empty;
+            FieldInfo fieldInfo = typeof(SecretModel).GetField("_staticSecret", BindingFlags.NonPublic | BindingFlags.Static);
+            if (fieldInfo != null)
+            {
+                result = (string)fieldInfo.GetValue(secretModel);
+                Result4 = result;
+            }
+            // return result;
+            
+        }
+        #endregion
+
+        #region Example 5 _ FieldInfo - Static Class
+        private void SetResult5_FieldInfoMethodStaticClass(/*SecretModel secretModel*/)
+        {
+            //Models.StaticSecretModel _staticSecretModel = new StaticSecretModel();
+            //StaticSecretModel secretModel = new SecretModel();
+            string result = string.Empty;
+            var fieldInfo = typeof(StaticSecretModel).GetField("_staticSecret", BindingFlags.NonPublic | BindingFlags.Static);
+            if (fieldInfo != null)
+            {
+                result = (string)fieldInfo.GetValue(null);
+                Result5 = result;
+            }
+            // return result;
+
+        }
         #endregion
 
     }
