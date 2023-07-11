@@ -61,10 +61,8 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
                 result = (string)fieldInfo.GetValue(_secretModel);
             }
             var endTime = DateTime.Now;
-            var TimeSpan = (endTime - startTime);
-            var example1_duration = TimeSpan.TotalMilliseconds / 1000;
-            TimeSpan1 = $"{example1_duration} ms";
-           Result1 = result;
+            TimeSpan1 = TimeCounterMethod(startTime, endTime);
+            Result1 = result;
         }
         #endregion
 
@@ -132,8 +130,8 @@ namespace GetAccessToPrivateFields_WpfSample.ViewModels
         #region TimeCounterMethod
         private string TimeCounterMethod(DateTime startTime, DateTime endTime)
         {
-            var timeSpan = (endTime - startTime).TotalMilliseconds;
-            return Result1 = $"{timeSpan} milliseconds";
+            var timeSpan = (double)(endTime - startTime).TotalMilliseconds;
+            return $"{timeSpan} ms";
         }
 
         #endregion
